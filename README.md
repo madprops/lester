@@ -1,14 +1,16 @@
 ![](http://i.imgur.com/oB5EyMw.jpg)
 
+Document related files reside in docs/
+
 There is a templates directory where you store the markdown files.
 
 Running the command without a path argument shows a picker to choose a template.
 
 The shown files are ordered by modification date. Only the first 10 are shown.
 
-The selected path is rendered into the docs directory as an html file.
+The selected path is rendered into the docs/render/pages directory as an html file.
 
-There is an extra directory with a global css file that affects all docs.
+There is an extra directory in render with global files that affect all pages.
 
 A markdown file can have a title metadata line to indicate the page's title:
 
@@ -17,6 +19,10 @@ A markdown file can have a title metadata line to indicate the page's title:
 A path can be specified directly:
 
 `lester /home/me/file.md`
+
+Using just the name will attempt to look in the templates directory:
+
+`lester mytemplate.md`
 
 ### Options
 
