@@ -10,6 +10,8 @@ type Config* = object
     background*: bool
     docs_path*: string
 
+# Process arguments and
+# build the config object
 proc get_config*(): Config =
     var arg = initOptParser(commandLineParams())
     var css = true
