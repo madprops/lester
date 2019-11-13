@@ -36,6 +36,8 @@ Then it will create a ~/.config/lester directory.
 
 Inside this directory is where your templates and pages exist.
 
+Alternatively use the nim compiler to compile from source.
+
 ### Options
 
 ```
