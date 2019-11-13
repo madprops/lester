@@ -11,7 +11,7 @@ type TFile = object
     last_modified: int64
 
 proc ask_path*(): string =
-    echo "\nChoose a template to compile\n"
+    echo "\nChoose a template to render\n"
 
     var files: seq[TFile]
 
