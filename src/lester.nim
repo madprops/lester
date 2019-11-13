@@ -5,6 +5,8 @@ import os
 import terminal
 import strformat
 
+setCurrentDir(getAppDir())
+
 var conf = get_config()
 
 if conf.path == "":

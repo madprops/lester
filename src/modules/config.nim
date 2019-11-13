@@ -34,6 +34,4 @@ proc get_config*(): Config =
     if path != "" and not path.contains("/"):
         path = &"../docs/templates/{path}"
     
-    echo path
-    
     Config(path:path, css:css, favicon:favicon, background:background)

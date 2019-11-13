@@ -21,6 +21,10 @@ proc ask_path*(): string =
 
     files = files.sortedByIt(it.last_modified).reversed()
 
+    if files.len() == 0:
+        echo "There are no templates."
+        quit(0)
+
     var n = 1
     var paths = initTable[string, TFile]()
 
@@ -34,7 +38,9 @@ proc ask_path*(): string =
     var ans = "none"
 
     while true:
-        ans = readLine(stdin)
+        ans = readLine(stdin).strip()
+        if ans == "0":
+            quit(0)
         if paths.hasKey(ans):
             break
 
