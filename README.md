@@ -35,6 +35,7 @@ Don't add a favicon tag
 
 --no-background
 Don't include a background image
+```
 
 ### More
 
