@@ -1,5 +1,7 @@
 ![](http://i.imgur.com/dRKX2Dm.jpg)
 
+![](http://i.imgur.com/J8bcDpG.jpg)
+
 Document related files reside in docs/
 
 There is a templates directory where you store the markdown files.
