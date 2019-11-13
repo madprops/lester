@@ -36,7 +36,11 @@ proc markdown_to_html*(conf: Config): string =
     var md = markdown(lines.join("\n"))
 
     # Add container and footer divs
-    md = &"<div id='container' class='{conf.container_class}'>{md}</div><div id='footer' class='{conf.footer_class}'></div>"
+    md = &"<div id='container' class='{conf.container_class}'>{md}</div>"
+
+    # Add optional footer
+    if conf.footer:
+        md = &"{md}<div id='footer' class='{conf.footer_class}'></div>"
 
     # Add optional background
     if conf.background:

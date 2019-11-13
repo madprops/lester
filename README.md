@@ -40,13 +40,16 @@ Inside this directory is where your templates and pages exist.
 
 ```
 --no-css
-Don't add a style tag
+Don't add the style tag
 
 --no-favicon
-Don't add a favicon tag
+Don't add the favicon tag
 
 --no-background
-Don't include a background image
+Don't add the background element
+
+--no-footer
+Don't add the footer element
 
 --docs-path
 Change the docs directory to use
