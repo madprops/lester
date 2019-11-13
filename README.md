@@ -86,6 +86,11 @@ will produce class='sunset'
 Adds a class to the footer
 For instance: --footer-class=notice
 will produce class='notice'
+
+--name
+Set the output file to a custom name
+For instance: --name=test
+will save it as render/pages/test.html
 ```
 
 ### Styling

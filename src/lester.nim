@@ -16,7 +16,18 @@ if conf.path == "":
 
 # Render the markdown
 let html = markdown_to_html(conf)
-let fname = extractFileName(conf.path).changeFileExt("html")
+
+var fname = ""
+
+# Get the proper output file name
+if conf.file_name != "":
+    fname = conf.file_name
+else:
+    fname = extractFileName(conf.path)
+
+# Add html extension
+fname = fname.changeFileExt("html")
+
 var rpath = joinpath(conf.docs_path, "render/pages")
 
 try:

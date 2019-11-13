@@ -10,6 +10,7 @@ type Config* = object
     background*: bool
     footer*: bool
     docs_path*: string
+    file_name*: string
     style_suffix*: string
     favicon_suffix*: string
     container_class*: string
@@ -26,6 +27,7 @@ proc get_config*(): Config =
     var footer = true
     var path = ""
     var docs_path = ""
+    var file_name = ""
     var style_suffix = ""
     var favicon_suffix = ""
     var container_class = ""
@@ -47,6 +49,8 @@ proc get_config*(): Config =
                 footer = false
             if arg.key == "docs-path":
                 docs_path = arg.val.strip()
+            if arg.key == "name":
+                file_name = arg.val.strip()
             if arg.key == "style-suffix":
                 style_suffix = arg.val.strip()
             if arg.key == "favicon-suffix":
@@ -71,5 +75,6 @@ proc get_config*(): Config =
         path = joinpath(docs_path, &"templates/{path}")
     
     Config(path:path, css:css, favicon:favicon, background:background, footer:footer,
-    docs_path:docs_path, style_suffix:style_suffix, favicon_suffix:favicon_suffix, 
-    container_class:container_class, background_class:background_class, footer_class:footer_class)
+    docs_path:docs_path, file_name:file_name, style_suffix:style_suffix, 
+    favicon_suffix:favicon_suffix, container_class:container_class, 
+    background_class:background_class, footer_class:footer_class)
