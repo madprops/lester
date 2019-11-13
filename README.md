@@ -51,7 +51,43 @@ Don't include a background image
 --docs-path
 Change the docs directory to use
 For example --docs-path=/home/me/docs
+
+--style-suffix
+Used to add something at the end of the css file
+For instance: --style-suffix=2 
+will produce style2.css
+
+--favicon-suffix
+Used to add something at the end of the css file
+For instance: --favicon-suffix=2 
+will produce favicon2.png
+
+--favicon-suffix
+Used to add something at the end of the css file
+For instance: --favicon-suffix=2 
+will produce favicon2.png
+
+--container-class
+Adds a class to the container
+For instance: --container-class=big
+will produce class='big'
+
+--background-class
+Adds a class to the background
+For instance: --background-class=sunset
+will produce class='sunset'
+
+--footer-class
+Adds a class to the footer
+For instance: --footer-class=notice
+will produce class='notice'
 ```
+
+### Styling
+
+Some basic styling is provided by default.
+
+But the css file and images are completely customizable.
 
 ### More
 
