@@ -32,6 +32,6 @@ proc get_config*(): Config =
         else: discard
     
     if path != "" and not path.contains("/"):
-        path = &"../docs/templates/{path}"
+        path = joinpath(gethomedir(), &".config/lester/docs/templates/{path}")
     
     Config(path:path, css:css, favicon:favicon, background:background)

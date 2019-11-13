@@ -26,6 +26,16 @@ Using just the name will attempt to look in the templates directory:
 
 `lester mytemplate.md`
 
+### Installation
+
+Run `install.sh`
+
+This will place the binary from bin/ into /bin/lester
+
+Then it will create a ~/.config/lester directory.
+
+Inside this directory is where your templates and pages exist.
+
 ### Options
 
 ```
@@ -44,3 +54,5 @@ Don't include a background image
 There is a run.sh script to run a debug version.
 
 There is a build.sh script to build a release version.
+
+There is a buildinstall.sh script to build and install.

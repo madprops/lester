@@ -14,8 +14,9 @@ proc ask_path*(): string =
     echo "\nChoose a template to render\n"
 
     var files: seq[TFile]
+    var tpath = joinpath(gethomedir(), ".config/lester/docs/templates")
 
-    for file in walkdir("../docs/templates"):
+    for file in walkdir(tpath):
         let info = getFileInfo(file.path)
         files.add(TFile(path:file.path, last_modified:info.lastWriteTime.toUnix()))
 
