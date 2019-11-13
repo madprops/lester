@@ -4,6 +4,7 @@ import modules/html
 import os
 import terminal
 import strformat
+import strutils
 
 var conf = get_config()
 
@@ -21,6 +22,7 @@ except:
     quit(0)
 
 echo &"\n{ansiForegroundColorCode(fgGreen)}File saved as: {fname}{ansiResetCode}"
+echo &"Docs Path: {$conf.docs_path.replace(gethomedir(), \"~/\")}"
 echo &"CSS Applied: {conf.css}"
 echo &"Favicon Applied: {conf.favicon}"
 echo &"Background Applied: {conf.background}"
