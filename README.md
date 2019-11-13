@@ -35,3 +35,9 @@ Don't add a favicon tag
 
 --no-background
 Don't include a background image
+
+### More
+
+There is a run.sh script to run a debug version.
+
+There is a build.sh script to build a release version.
