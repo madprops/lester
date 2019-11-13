@@ -1,3 +1,4 @@
+import config
 import os
 import times
 import tables
@@ -10,11 +11,11 @@ type TFile = object
     path: string
     last_modified: int64
 
-proc ask_path*(): string =
-    echo "\nChoose a template to render\n"
+proc ask_path*(conf: Config): string =
+    echo "\nChoose a template to render"
 
     var files: seq[TFile]
-    var tpath = joinpath(gethomedir(), ".config/lester/docs/templates")
+    var tpath = joinpath(conf.docs_path, "templates")
 
     for file in walkdir(tpath):
         let info = getFileInfo(file.path)
@@ -25,6 +26,8 @@ proc ask_path*(): string =
     if files.len() == 0:
         echo "There are no templates."
         quit(0)
+    
+    echo "(q to exit)\n"
 
     var n = 1
     var paths = initTable[string, TFile]()
@@ -40,7 +43,7 @@ proc ask_path*(): string =
 
     while true:
         ans = readLine(stdin).strip()
-        if ans == "0":
+        if ans == "q":
             quit(0)
         if paths.hasKey(ans):
             break

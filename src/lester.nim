@@ -8,11 +8,11 @@ import strformat
 var conf = get_config()
 
 if conf.path == "":
-    conf.path = ask_path()
+    conf.path = ask_path(conf)
 
 let render = get_html(conf)
 let fname = extractFileName(conf.path).changeFileExt("html")
-var rpath = joinpath(gethomedir(), ".config/lester/docs/render/pages")
+var rpath = joinpath(conf.docs_path, "render/pages")
 
 try:
     writeFile(joinpath(rpath, fname), render)

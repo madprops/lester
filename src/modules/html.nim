@@ -6,12 +6,16 @@ import nre
 
 proc get_html*(conf: Config): string =
     var content = ""
-
+    
     try:
         content = readFile(conf.path)
     except:
-        echo "Can't read the file."
-        quit(0)
+        if not conf.path.endswith(".md"):
+            try:
+                content = readFile(&"{conf.path}.md")
+            except:
+                echo "Can't read the file."
+                quit(0)
 
     var title = ""
     var lines: seq[string]

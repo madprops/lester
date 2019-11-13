@@ -47,6 +47,10 @@ Don't add a favicon tag
 
 --no-background
 Don't include a background image
+
+--docs-path
+Change the docs directory to use
+For example --docs-path=/home/me/docs
 ```
 
 ### More
