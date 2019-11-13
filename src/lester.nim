@@ -6,6 +6,7 @@ import terminal
 import strformat
 import strutils
 
+# Get the config object
 var conf = get_config()
 
 # If no path then show
