@@ -1,5 +1,6 @@
 import os
 import strutils
+import strformat
 import parseopt
 
 type Config* = object
@@ -29,5 +30,10 @@ proc get_config*(): Config =
         of cmdArgument:
             path = arg.key.strip()
         else: discard
+    
+    if path != "" and not path.contains("/"):
+        path = &"../docs/templates/{path}"
+    
+    echo path
     
     Config(path:path, css:css, favicon:favicon, background:background)

@@ -15,7 +15,7 @@ proc ask_path*(): string =
 
     var files: seq[TFile]
 
-    for file in walkdir("templates"):
+    for file in walkdir("../docs/templates"):
         let info = getFileInfo(file.path)
         files.add(TFile(path:file.path, last_modified:info.lastWriteTime.toUnix()))
 
@@ -26,7 +26,7 @@ proc ask_path*(): string =
 
     for file in files:
         paths[intToStr(n)] = file
-        echo &"{ansiForegroundColorCode(fgBlue)}({n}){ansiResetCode} {file.path}"
+        echo &"{ansiForegroundColorCode(fgBlue)}({n}){ansiResetCode} {file.path.extractFileName()}"
         inc(n); if n > 10: break
 
     echo ""

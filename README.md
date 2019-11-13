@@ -16,7 +16,7 @@ A markdown file can have a title metadata line to indicate the page's title:
 
 A path can be specified directly:
 
-`lester /home/my/file.md`
+`lester /home/me/file.md`
 
 ### Options
 

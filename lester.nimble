@@ -2,7 +2,9 @@
 version       = "0.1.0"
 author        = "madprops"
 description   = "Manage markdown documents"
-license       = "MIT"
+license       = "WTFPL"
+srcDir        = "src"
+bin           = @["lester"]
 
 # Dependencies
 requires "markdown >= 0.8.0"

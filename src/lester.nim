@@ -12,9 +12,9 @@ if conf.path == "":
 
 let render = get_html(conf)
 let fname = extractFileName(conf.path).changeFileExt("html")
-writeFile(&"docs/{fname}", render)
+writeFile(&"../docs/render/pages/{fname}", render)
 
-echo &"\n{ansiForegroundColorCode(fgGreen)}File saved as: docs/{fname}{ansiResetCode}"
+echo &"\n{ansiForegroundColorCode(fgGreen)}File saved as: {fname}{ansiResetCode}"
 echo &"CSS Applied: {conf.css}"
 echo &"Favicon Applied: {conf.favicon}"
 echo &"Background Applied: {conf.background}"
