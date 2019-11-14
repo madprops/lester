@@ -30,5 +30,4 @@ proc process_path*(conf: Config, path: string) =
         quit(0)
 
     # Feedback on completion
-    echo &"\n{ansiForegroundColorCode(fgGreen)}File saved as: {fname}{ansiResetCode}"
-    echo &"Docs Path: {$conf.docs_path.replace(gethomedir(), \"~/\")}"
+    echo &"{ansiForegroundColorCode(fgGreen)}Rendered:{ansiResetCode} {fname}"
