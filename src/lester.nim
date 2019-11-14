@@ -9,12 +9,14 @@ import strformat
 # Get the config object
 var conf = get_config()
 
+echo &"\n{ansiForegroundColorCode(fgBlue)}Docs Path: {ansiResetCode}",
+    &"{$conf.docs_path.replace(gethomedir(), \"~/\")}"
+
 # If no path then show
 # the selection menu
 if conf.paths.len() == 0:
     conf.paths = ask_paths(conf)
-
-echo &"\n{ansiForegroundColorCode(fgBlue)}Docs Path:{ansiResetCode} {$conf.docs_path.replace(gethomedir(), \"~/\")}"
+    echo ""
 
 for path in conf.paths:
     process_path(conf, path)

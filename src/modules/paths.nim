@@ -33,7 +33,10 @@ proc ask_paths*(conf: Config): seq[string] =
     files = files.sortedByIt(it.last_modified).reversed()
             
     echo "\nChoose the templates to render"
-    echo "Space separated (q to exit)\n"
+    echo "(Space separated)"
+    let xquit = &"{ansiForegroundColorCode(fgBlue)}(q){ansiResetCode} Quit"
+    let xall = &"{ansiForegroundColorCode(fgBlue)}(A){ansiResetCode} All"
+    echo &"{xquit} | {xall}\n"
 
     var n = 1
     var paths = initTable[string, TFile]()
@@ -48,35 +51,41 @@ proc ask_paths*(conf: Config): seq[string] =
 
     var pths: seq[string]
 
-    while true:
-        # Get user input
-        var ans = readLine(stdin).strip()
-        ans = ans.replace(",", " ")
+    block loop:
+        while true:
+            # Get user input
+            var ans = readLine(stdin).strip()
+            ans = ans.replace(",", " ")
 
-        # Exit character
-        if ans == "q":
-            quit(0)
+            # Exit character
+            if ans.toLower() == "q":
+                quit(0)
+            
+            elif ans == "A":
+                for key, val in paths:
+                    pths.add(paths[key].path)
+                break loop
 
-        var ok = true
-        let nums = ans.split(" ")
-        var cnums: seq[string]
+            var ok = true
+            let nums = ans.split(" ")
+            var cnums: seq[string]
 
-        for num in nums:
-            var n = num.strip()
-            if n == "":
-                continue
-            if not paths.hasKey(n):
-                ok = false
-                break
-            cnums.add(n)
-        
-        # Continue looping
-        if not ok: continue
+            for num in nums:
+                var n = num.strip()
+                if n == "":
+                    continue
+                if not paths.hasKey(n):
+                    ok = false
+                    break
+                cnums.add(n)
+            
+            # Continue looping
+            if not ok: continue
 
-        # If valid add each path
-        for num in cnums:
-            pths.add(paths[num].path)
-        break
+            # If valid add each path
+            for num in cnums:
+                pths.add(paths[num].path)
+            break
         
     # Return the selected 
     # template paths
