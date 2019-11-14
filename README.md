@@ -8,7 +8,9 @@ There is a templates directory where you store the markdown files.
 
 Running the command without a path argument shows a picker to choose a template.
 
-The shown files are ordered by modification date. Only the first 10 are shown.
+The shown files are ordered by modification date. Only the first 20 are shown.
+
+Using "A" renders all files in the directory (not just the once shown).
 
 The selected path is rendered into the docs/render/pages directory as an html file.
 
