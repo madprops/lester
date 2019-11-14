@@ -9,8 +9,8 @@ import strformat
 var conf = get_config()
 
 # Show docs path
-echo &"\n{ansiForegroundColorCode(fgBlue)}Docs Path: {ansiResetCode}",
-    &"{$conf.docs_path.replace(gethomedir(), \"~/\")}"
+let p = conf.docs_path.replace(gethomedir(), "~/")
+echo &"\n{ansiForegroundColorCode(fgBlue)}Docs Path:{ansiResetCode} {p}"
 
 # If no path then show
 # the selection menu
