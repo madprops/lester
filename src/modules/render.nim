@@ -19,7 +19,7 @@ proc markdown_to_html*(conf: Config, path:string): string =
             try:
                 content = readFile(p)
             except:
-                echo &"Can't read {p}."
+                echo &"\nCan't read {p}."
                 echo "Maybe you mispelled it?"
                 quit(0)
 
