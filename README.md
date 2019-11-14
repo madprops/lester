@@ -10,7 +10,7 @@ Running the command without a path argument shows a picker to choose a template.
 
 The shown files are ordered by modification date. Only the first 20 are shown.
 
-Using "A" renders all files in the directory (not just the once shown).
+Using "A" renders all files in the directory (not just the ones shown).
 
 The selected path is rendered into the docs/render/pages directory as an html file.
 
