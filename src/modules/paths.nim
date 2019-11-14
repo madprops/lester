@@ -1,5 +1,6 @@
 import settings
 import config
+import render
 import os
 import times
 import tables
@@ -90,3 +91,30 @@ proc ask_paths*(conf: Config): seq[string] =
     # Return the selected 
     # template paths
     return pths
+
+proc process_path*(conf: Config, path: string) =
+    # Render the markdown
+    let html = markdown_to_html(conf, path)
+    
+    var fname = ""
+    
+    # Get the proper output file name
+    if conf.file_name != "":
+        fname = conf.file_name
+    else:
+        fname = extractFileName(path)
+    
+    # Add html extension
+    fname = fname.changeFileExt("html")
+    
+    var rpath = joinpath(conf.docs_path, "render/pages")
+    
+    try:
+        # Save the html render
+        writeFile(joinpath(rpath, fname), html)
+    except:
+        echo "Can't save the file."
+        quit(0)
+    
+    # Feedback on completion
+    echo &"{ansiForegroundColorCode(fgGreen)}Rendered:{ansiResetCode} {fname}"

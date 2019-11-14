@@ -1,6 +1,5 @@
 import modules/paths
 import modules/config
-import modules/process
 import os
 import terminal
 import strutils
