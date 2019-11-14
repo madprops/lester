@@ -14,25 +14,26 @@ type TFile = object
 
 # Show a menu to let the user 
 # select a file to render
-proc ask_path*(conf: Config): string =
-    echo "\nChoose a template to render"
-
+proc ask_paths*(conf: Config): seq[string] =
     var files: seq[TFile]
     var tpath = joinpath(conf.docs_path, "templates")
-
+    
     # Get template files
     for file in walkdir(tpath):
+        if not file.path.endswith(".md"):
+            continue
         let info = getFileInfo(file.path)
         files.add(TFile(path:file.path, last_modified:info.lastWriteTime.toUnix()))
+        
+    if files.len() == 0:
+        echo "There are no templates in the directory."
+        quit(0)
 
     # Sort by modification date
     files = files.sortedByIt(it.last_modified).reversed()
-
-    if files.len() == 0:
-        echo "There are no templates."
-        quit(0)
-    
-    echo "(q to exit)\n"
+            
+    echo "\nChoose the templates to render"
+    echo "Space separated (q to exit)\n"
 
     var n = 1
     var paths = initTable[string, TFile]()
@@ -45,18 +46,38 @@ proc ask_path*(conf: Config): string =
 
     echo ""
 
-    var ans = "none"
+    var pths: seq[string]
 
     while true:
         # Get user input
-        ans = readLine(stdin).strip()
+        var ans = readLine(stdin).strip()
+        ans = ans.replace(",", " ")
+
         # Exit character
         if ans == "q":
             quit(0)
-        # Check if it's a valid number
-        elif paths.hasKey(ans):
-            break
-    
+
+        var ok = true
+        let nums = ans.split(" ")
+        var cnums: seq[string]
+
+        for num in nums:
+            var n = num.strip()
+            if n == "":
+                continue
+            if not paths.hasKey(n):
+                ok = false
+                break
+            cnums.add(n)
+        
+        # Continue looping
+        if not ok: continue
+
+        # If valid add each path
+        for num in cnums:
+            pths.add(paths[num].path)
+        break
+        
     # Return the selected 
-    # template path
-    paths[ans].path
+    # template paths
+    return pths

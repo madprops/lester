@@ -5,20 +5,22 @@ import strutils
 import nre
 
 # Transform the markdown to html
-proc markdown_to_html*(conf: Config): string =
+proc markdown_to_html*(conf: Config, path:string): string =
     var content = ""
     
     try:
         # Read the template file
-        content = readFile(conf.path)
+        content = readFile(path)
     except:
         # If it fails then try 
         # adding an .md extension
-        if not conf.path.endswith(".md"):
+        if not path.endswith(".md"):
+            let p = &"{path}.md"
             try:
-                content = readFile(&"{conf.path}.md")
+                content = readFile(p)
             except:
-                echo "Can't read the file."
+                echo &"Can't read {p}."
+                echo "Maybe you mispelled it?"
                 quit(0)
 
     var title = ""

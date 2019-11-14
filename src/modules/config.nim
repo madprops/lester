@@ -4,7 +4,7 @@ import strformat
 import parseopt
 
 type Config* = object
-    path*: string
+    paths*: seq[string]
     css*: bool
     favicon*: bool
     background*: bool
@@ -25,7 +25,8 @@ proc get_config*(): Config =
     var favicon = true
     var background = true
     var footer = true
-    var path = ""
+    var paths: seq[string]
+    var spaths: seq[string]
     var docs_path = ""
     var file_name = ""
     var style_suffix = ""
@@ -62,7 +63,7 @@ proc get_config*(): Config =
             if arg.key == "footer-class":
                 footer_class = arg.val.strip()
         of cmdArgument:
-            path = arg.key.strip()
+            spaths.add(arg.key.strip())
         else: discard
     
     if docs_path == "":
@@ -71,10 +72,14 @@ proc get_config*(): Config =
         if not docs_path.startswith("/"):
             docs_path = joinpath(getCurrentDir(), docs_path)
     
-    if path != "" and not path.contains("/"):
-        path = joinpath(docs_path, &"templates/{path}")
+    for path in spaths:
+        var p = path
+        if p == "": continue
+        if not p.contains("/"):
+            p = joinpath(docs_path, &"templates/{path}")
+        paths.add(p)
     
-    Config(path:path, css:css, favicon:favicon, background:background, footer:footer,
+    Config(paths:paths, css:css, favicon:favicon, background:background, footer:footer,
     docs_path:docs_path, file_name:file_name, style_suffix:style_suffix, 
     favicon_suffix:favicon_suffix, container_class:container_class, 
     background_class:background_class, footer_class:footer_class)
