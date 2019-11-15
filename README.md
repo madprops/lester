@@ -1,6 +1,6 @@
 ![](http://i.imgur.com/eyvne0z.jpg)
 
-![](http://i.imgur.com/J8bcDpG.jpg)
+![](http://i.imgur.com/j6bVh6J.jpg)
 
 Document related files reside in docs/
 
