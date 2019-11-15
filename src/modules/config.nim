@@ -1,7 +1,6 @@
 import os
 import strutils
 import strformat
-import parseopt
 import nap
 
 type Config* = object
@@ -61,34 +60,17 @@ proc get_config*(): Config =
   background = not arg("no-background").used
   footer = not arg("no-footer").used
   
-  var a = arg("docs-path")
-  if a.used: docs_path = a.value
+  docs_path = argval_string("docs-path", docs_path)
+  file_name = argval_string("name", file_name)
+  style_suffix = argval_string("style-suffix", style_suffix)
+  favicon_suffix = argval_string("favicon-suffix", favicon_suffix)
+  container_class = argval_string("container-class", container_class)
+  background_class = argval_string("background-class", background_class)
+  footer_class = argval_string("footer-class", footer_class)
+  additional_css = argval_string("additional-css", additional_css)
+  additional_js = argval_string("additional-js", additional_js)
   
-  a = arg("name")
-  if a.used: file_name = a.value
-  
-  a = arg("style-suffix")
-  if a.used: style_suffix = a.value
-  
-  a = arg("favicon-suffix")
-  if a.used: favicon_suffix = a.value
-  
-  a = arg("container-class")
-  if a.used: container_class = a.value
-  
-  a = arg("background-class")
-  if a.used: background_class = a.value
-  
-  a = arg("footer-class")
-  if a.used: footer_class = a.value
-  
-  a = arg("additional-css")
-  if a.used: additional_css = a.value
-
-  a = arg("additional-js")
-  if a.used: additional_js = a.value
-  
-  a = arg("paths")
+  let a = arg("paths")
   if a.used: 
     spaths.add(a.value)
     for p in argtail():
