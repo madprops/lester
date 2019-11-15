@@ -2,6 +2,7 @@ import os
 import strutils
 import strformat
 import parseopt
+import nap
 
 type Config* = object
     paths*: seq[string]
@@ -20,7 +21,6 @@ type Config* = object
 # Process arguments and
 # build the config object
 proc get_config*(): Config =
-    var arg = initOptParser(commandLineParams())
     var css = true
     var favicon = true
     var background = true
@@ -35,36 +35,52 @@ proc get_config*(): Config =
     var background_class = ""
     var footer_class = ""
 
-    while true:
-        arg.next()
-        case arg.kind
-        of cmdEnd: break
-        of cmdLongOption:
-            if arg.key == "no-css":
-                css = false
-            if arg.key == "no-favicon":
-                favicon = false
-            if arg.key == "no-background":
-                background = false
-            if arg.key == "no-footer":
-                footer = false
-            if arg.key == "docs-path":
-                docs_path = arg.val.strip()
-            if arg.key == "name":
-                file_name = arg.val.strip()
-            if arg.key == "style-suffix":
-                style_suffix = arg.val.strip()
-            if arg.key == "favicon-suffix":
-                favicon_suffix = arg.val.strip()
-            if arg.key == "container-class":
-                container_class = arg.val.strip()
-            if arg.key == "background-class":
-                background_class = arg.val.strip()
-            if arg.key == "footer-class":
-                footer_class = arg.val.strip()
-        of cmdArgument:
-            spaths.add(arg.key.strip())
-        else: discard
+    add_arg(name="no-css", kind="flag", help="Disable css addition")
+    add_arg(name="no-favicon", kind="flag", help="Disable favicon addition")
+    add_arg(name="no-background", kind="flag", help="Disable background addition")
+    add_arg(name="no-footer", kind="flag", help="Disable footer addition")
+    add_arg(name="docs-path", kind="value", help="Path to the docs directory")
+    add_arg(name="name", kind="value", help="Name of the output file")
+    add_arg(name="style-suffix", kind="value", help="Suffix for the css file name")
+    add_arg(name="favicon-suffix", kind="value", help="Suffix for the favicon file name")
+    add_arg(name="container-class", kind="value", help="Class for the container element")
+    add_arg(name="background-class", kind="value", help="Class for the background element")
+    add_arg(name="footer-class", kind="value", help="Class for the footer element")
+    add_arg(name="paths", kind="argument", help="Paths/Names for immidiate render")
+
+    parse_args("lester - markdown to html converter")
+    
+    css = not arg("no-css").used
+    favicon = not arg("no-favicon").used
+    background = not arg("no-background").used
+    footer = not arg("no-footer").used
+    
+    var a1 = arg("docs-path")
+    if a1.used: docs_path = a1.value
+    
+    var a2 = arg("name")
+    if a2.used: file_name = a2.value
+    
+    var a3 = arg("style-suffix")
+    if a3.used: style_suffix = a3.value
+    
+    var a4 = arg("favicon-suffix")
+    if a4.used: favicon_suffix = a4.value
+    
+    var a5 = arg("container-class")
+    if a5.used: container_class = a5.value
+    
+    var a6 = arg("background-class")
+    if a6.used: background_class = a6.value
+    
+    var a7 = arg("footer-class")
+    if a7.used: footer_class = a7.value
+    
+    var a8 = arg("paths")
+    if a8.used: 
+         spaths.add(a8.value)
+         for p in argtail():
+            spaths.add(p)
     
     if docs_path == "":
         docs_path = joinpath(gethomedir(), &".config/lester/docs")
