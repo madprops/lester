@@ -93,6 +93,18 @@ will produce class='notice'
 Set the output file to a custom name
 For instance: --name=test
 will save it as render/pages/test.html
+
+--additional-css
+List of extra css files to include
+For instance: --additional-css="big red"
+will include extra/css/big.css and
+extra/css/red.css
+
+--additional-js
+List of extra js files to include
+For instance: --additional-js="math video"
+will include extra/js/math.js and
+extra/js/video.js
 ```
 
 ### Styling

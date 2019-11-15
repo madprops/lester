@@ -2,6 +2,7 @@ import config
 import markdown
 import strformat
 import strutils
+import algorithm
 import nre
 
 # Transform the markdown to html
@@ -47,6 +48,24 @@ proc markdown_to_html*(conf: Config, path:string): string =
     # Add optional background
     if conf.background:
         md = &"<div id='background' class='{conf.background_class}'></div>{md}"
+    
+    # Include optional js files
+    if conf.additional_js != "":
+        let names = conf.additional_js.split(" ").reversed()
+        for name in names:
+            let n = name.strip()
+            if n == "": continue
+            let style = &"<script src='../extra/js/{n}.js'></script>\n"
+            md = &"{style}{md}"
+            
+    # Include optional css files
+    if conf.additional_css != "":
+        let names = conf.additional_css.split(" ").reversed()
+        for name in names:
+            let n = name.strip()
+            if n == "": continue
+            let style = &"<link rel='stylesheet' type='text/css' href='../extra/css/{n}.css'>\n"
+            md = &"{style}{md}"
     
     # Add optional css
     if conf.css:

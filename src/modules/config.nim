@@ -17,6 +17,8 @@ type Config* = object
     container_class*: string
     background_class*: string
     footer_class*: string
+    additional_css*: string
+    additional_js*: string
 
 # Process arguments and
 # build the config object
@@ -34,6 +36,8 @@ proc get_config*(): Config =
     var container_class = ""
     var background_class = ""
     var footer_class = ""
+    var additional_css = ""
+    var additional_js = ""
 
     add_arg(name="no-css", kind="flag", help="Disable css addition")
     add_arg(name="no-favicon", kind="flag", help="Disable favicon addition")
@@ -46,6 +50,8 @@ proc get_config*(): Config =
     add_arg(name="container-class", kind="value", help="Class for the container element")
     add_arg(name="background-class", kind="value", help="Class for the background element")
     add_arg(name="footer-class", kind="value", help="Class for the footer element")
+    add_arg(name="additional-css", kind="value", help="List of additional css files to include")
+    add_arg(name="additional-js", kind="value", help="List of additional js files to include")
     add_arg(name="paths", kind="argument", help="Paths/Names for immidiate render")
 
     parse_args("lester - markdown to html converter")
@@ -76,9 +82,15 @@ proc get_config*(): Config =
     var a7 = arg("footer-class")
     if a7.used: footer_class = a7.value
     
-    var a8 = arg("paths")
-    if a8.used: 
-         spaths.add(a8.value)
+    var a8 = arg("additional-css")
+    if a8.used: additional_css = a8.value
+
+    var a9 = arg("additional-js")
+    if a9.used: additional_js = a9.value
+    
+    var ap = arg("paths")
+    if ap.used: 
+         spaths.add(ap.value)
          for p in argtail():
             spaths.add(p)
     
@@ -96,6 +108,6 @@ proc get_config*(): Config =
         paths.add(p)
     
     Config(paths:paths, css:css, favicon:favicon, background:background, footer:footer,
-    docs_path:docs_path, file_name:file_name, style_suffix:style_suffix, 
-    favicon_suffix:favicon_suffix, container_class:container_class, 
-    background_class:background_class, footer_class:footer_class)
+    docs_path:docs_path, file_name:file_name, style_suffix:style_suffix, favicon_suffix:favicon_suffix, 
+    container_class:container_class, background_class:background_class, footer_class:footer_class, 
+    additional_css:additional_css, additional_js:additional_js)
