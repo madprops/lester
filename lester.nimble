@@ -8,4 +8,3 @@ bin           = @["lester"]
 
 # Dependencies
 requires "markdown >= 0.8.0"
-requires "https://github.com/madprops/nap"
