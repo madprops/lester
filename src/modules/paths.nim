@@ -58,6 +58,10 @@ proc ask_paths*(conf: Config): seq[string] =
       var ans = readLine(stdin).strip()
       ans = ans.replace(",", " ")
 
+      # Empty
+      if ans == "":
+        continue
+
         # Exit character
       if ans.toLower() == "q":
         quit(0)

@@ -71,7 +71,7 @@ proc get_config*(): Config =
   # Create and return object  
   Config(paths:paths, 
   css: !css.used, favicon: !favicon.used, background: !background.used, footer: !footer.used, 
-  docs_path:docs_path.value, file_name:file_name.value, style_suffix:style_suffix.value, 
-  favicon_suffix:favicon_suffix.value, container_class:container_class.value, 
-  background_class:background_class.value, footer_class:footer_class.value,
-  additional_css:additional_css.value, additional_js:additional_js.value)
+  docs_path:docs_path.val, file_name:file_name.val, style_suffix:style_suffix.val, 
+  favicon_suffix:favicon_suffix.val, container_class:container_class.val, 
+  background_class:background_class.val, footer_class:footer_class.val,
+  additional_css:additional_css.val, additional_js:additional_js.val)
