@@ -62,7 +62,7 @@ proc ask_paths*(conf: Config): seq[string] =
       if ans == "":
         continue
 
-        # Exit character
+      # Exit character
       if ans.toLower() == "q":
         quit(0)
         
