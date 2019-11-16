@@ -65,7 +65,7 @@ proc ask_paths*(conf: Config): seq[string] =
       elif ans == "A":
         for key, val in paths:
           pths.add(paths[key].path)
-          break loop
+        break loop
 
       var ok = true
       let nums = ans.split(" ")

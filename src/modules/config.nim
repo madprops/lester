@@ -3,6 +3,8 @@ import strutils
 import strformat
 import nap
 
+template `!`(x: bool): bool = not x
+
 type Config* = object
   paths*: seq[string]
   css*: bool
@@ -19,77 +21,57 @@ type Config* = object
   additional_css*: string
   additional_js*: string
 
-# Process arguments and
-# build the config object
 proc get_config*(): Config =
-  var css = true
-  var favicon = true
-  var background = true
-  var footer = true
-  var paths: seq[string]
-  var spaths: seq[string]
-  var docs_path = ""
-  var file_name = ""
-  var style_suffix = ""
-  var favicon_suffix = ""
-  var container_class = ""
-  var background_class = ""
-  var footer_class = ""
-  var additional_css = ""
-  var additional_js = ""
 
-  add_arg(name="no-css", kind="flag", help="Disable css addition")
-  add_arg(name="no-favicon", kind="flag", help="Disable favicon addition")
-  add_arg(name="no-background", kind="flag", help="Disable background addition")
-  add_arg(name="no-footer", kind="flag", help="Disable footer addition")
-  add_arg(name="docs-path", kind="value", help="Path to the docs directory")
-  add_arg(name="name", kind="value", help="Name of the output file")
-  add_arg(name="style-suffix", kind="value", help="Suffix for the css file name")
-  add_arg(name="favicon-suffix", kind="value", help="Suffix for the favicon file name")
-  add_arg(name="container-class", kind="value", help="Class for the container element")
-  add_arg(name="background-class", kind="value", help="Class for the background element")
-  add_arg(name="footer-class", kind="value", help="Class for the footer element")
-  add_arg(name="additional-css", kind="value", help="List of additional css files to include")
-  add_arg(name="additional-js", kind="value", help="List of additional js files to include")
-  add_arg(name="paths", kind="argument", help="Paths/Names for immidiate render")
+  # Register arguments
+  let css = use_arg(name="no-css", kind="flag", help="Disable css addition")
+  let favicon = use_arg(name="no-favicon", kind="flag", help="Disable favicon addition")
+  let background = use_arg(name="no-background", kind="flag", help="Disable background addition")
+  let footer = use_arg(name="no-footer", kind="flag", help="Disable footer addition")
+  let docs_path = use_arg(name="docs-path", kind="value", help="Path to the docs directory")
+  let file_name = use_arg(name="name", kind="value", help="Name of the output file")
+  let style_suffix = use_arg(name="style-suffix", kind="value", help="Suffix for the css file name")
+  let favicon_suffix = use_arg(name="favicon-suffix", kind="value", help="Suffix for the favicon file name")
+  let container_class = use_arg(name="container-class", kind="value", help="Class for the container element")
+  let background_class = use_arg(name="background-class", kind="value", help="Class for the background element")
+  let footer_class = use_arg(name="footer-class", kind="value", help="Class for the footer element")
+  let additional_css = use_arg(name="additional-css", kind="value", help="List of additional css files to include")
+  let additional_js = use_arg(name="additional-js", kind="value", help="List of additional js files to include")
+  let ppaths = use_arg(name="paths", kind="argument", help="Paths/Names for immidiate render")
 
+  # Do the argument parsing
   parse_args("lester - markdown to html converter")
+
+  # Raw Paths
+  var rpaths: seq[string]
   
-  css = not arg("no-css").used
-  favicon = not arg("no-favicon").used
-  background = not arg("no-background").used
-  footer = not arg("no-footer").used
-  
-  docs_path = argval_string("docs-path", docs_path)
-  file_name = argval_string("name", file_name)
-  style_suffix = argval_string("style-suffix", style_suffix)
-  favicon_suffix = argval_string("favicon-suffix", favicon_suffix)
-  container_class = argval_string("container-class", container_class)
-  background_class = argval_string("background-class", background_class)
-  footer_class = argval_string("footer-class", footer_class)
-  additional_css = argval_string("additional-css", additional_css)
-  additional_js = argval_string("additional-js", additional_js)
-  
-  let a = arg("paths")
-  if a.used: 
-    spaths.add(a.value)
+  if ppaths.used: 
+    rpaths.add(ppaths.value)
     for p in argtail():
-      spaths.add(p)
+      rpaths.add(p)
   
-  if docs_path == "":
-    docs_path = joinpath(gethomedir(), &".config/lester/docs")
+  # Fix docs path
+  if docs_path.value == "":
+    docs_path.value = joinpath(gethomedir(), &".config/lester/docs")
   else:
-    if not docs_path.startswith("/"):
-      docs_path = joinpath(getCurrentDir(), docs_path)
+    if not docs_path.value.startswith("/"):
+      docs_path.value = joinpath(getCurrentDir(), docs_path.value)
   
-  for path in spaths:
+  # Hold fixed paths
+  var paths: seq[string]
+  
+  # Fix paths
+  for path in rpaths:
     var p = path
     if p == "": continue
     if not p.contains("/"):
-      p = joinpath(docs_path, &"templates/{path}")
+      p = joinpath(docs_path.value, &"templates/{path}")
     paths.add(p)
-        
-  Config(paths:paths, css:css, favicon:favicon, background:background, footer:footer,
-  docs_path:docs_path, file_name:file_name, style_suffix:style_suffix, favicon_suffix:favicon_suffix, 
-  container_class:container_class, background_class:background_class, footer_class:footer_class, 
-  additional_css:additional_css, additional_js:additional_js)
+  
+  # Create and return object  
+  Config(paths:paths, 
+  css: !css.used, favicon: !favicon.used, background: !background.used, footer: !footer.used, 
+  docs_path:docs_path.value, file_name:file_name.value, style_suffix:style_suffix.value, 
+  favicon_suffix:favicon_suffix.value, container_class:container_class.value, 
+  background_class:background_class.value, footer_class:footer_class.value,
+  additional_css:additional_css.value, additional_js:additional_js.value)
