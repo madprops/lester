@@ -1,0 +1,1 @@
+nim c -o:bin/lester-release-linux -d:release src/lester

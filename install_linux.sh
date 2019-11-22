@@ -1,4 +1,4 @@
-sudo cp bin/lester /bin/lester
+sudo cp bin/lester-release-linux /bin/lester
 
 echo "Binary placed in /bin/lester"
 
