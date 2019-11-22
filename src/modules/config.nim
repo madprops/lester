@@ -40,7 +40,8 @@ proc get_config*(): Config =
   let ppaths = use_arg(name="paths", kind="argument", help="Paths/Names for immidiate render")
 
   # Do the argument parsing
-  parse_args("lester - markdown to html converter")
+  add_header("lester - markdown to html converter")
+  parse_args()
 
   # Raw Paths
   var rpaths: seq[string]
@@ -52,7 +53,7 @@ proc get_config*(): Config =
   
   # Fix docs path
   if docs_path.value == "":
-    docs_path.value = joinpath(gethomedir(), &".config/lester/docs")
+    docs_path.value = getConfigDir().joinPath("lester/docs")
   else:
     if not docs_path.value.startswith("/"):
       docs_path.value = joinpath(getCurrentDir(), docs_path.value)
