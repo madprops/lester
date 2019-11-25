@@ -5,7 +5,7 @@ import nap
 
 template `!`(x: bool): bool = not x
 
-type Config* = object
+type Config* = ref object
   paths*: seq[string]
   css*: bool
   favicon*: bool
@@ -21,7 +21,9 @@ type Config* = object
   additional_css*: string
   additional_js*: string
 
-proc get_config*(): Config =
+var oconf: Config
+
+proc get_config*() =
 
   # Register arguments
   let css = use_arg(name="no-css", kind="flag", help="Disable css addition")
@@ -69,10 +71,13 @@ proc get_config*(): Config =
       p = joinpath(docs_path.value, &"templates/{path}")
     paths.add(p)
   
-  # Create and return object  
-  Config(paths:paths, 
+  # Create config object
+  oconf = Config(paths:paths, 
   css: !css.used, favicon: !favicon.used, background: !background.used, footer: !footer.used, 
   docs_path:docs_path.val, file_name:file_name.val, style_suffix:style_suffix.val, 
   favicon_suffix:favicon_suffix.val, container_class:container_class.val, 
   background_class:background_class.val, footer_class:footer_class.val,
   additional_css:additional_css.val, additional_js:additional_js.val)
+
+proc conf*(): Config =
+  return oconf

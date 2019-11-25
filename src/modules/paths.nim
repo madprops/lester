@@ -15,9 +15,9 @@ type TFile = object
 
 # Show a menu to let the user 
 # select a file to render
-proc ask_paths*(conf: Config): seq[string] =
+proc ask_paths*(): seq[string] =
   var files: seq[TFile]
-  var tpath = joinpath(conf.docs_path, "templates")
+  var tpath = joinpath(conf().docs_path, "templates")
     
   # Get template files
   for file in walkdir(tpath):
@@ -96,22 +96,22 @@ proc ask_paths*(conf: Config): seq[string] =
   # template paths
   return pths
 
-proc process_path*(conf: Config, path: string) =
+proc process_path*(path: string) =
   # Render the markdown
-  let html = markdown_to_html(conf, path)
-  
+  let html = markdown_to_html(path)
+
   var fname = ""
   
   # Get the proper output file name
-  if conf.file_name != "":
-    fname = conf.file_name
+  if conf().file_name != "":
+    fname = conf().file_name
   else:
     fname = extractFileName(path)
   
   # Add html extension
   fname = fname.changeFileExt("html")
   
-  var rpath = joinpath(conf.docs_path, "render/pages")
+  var rpath = joinpath(conf().docs_path, "render/pages")
   
   try:
     # Save the html render
