@@ -50,7 +50,7 @@ proc get_config*() =
   
   if ppaths.used: 
     rpaths.add(ppaths.value)
-    for p in argtail():
+    for p in get_argtail():
       rpaths.add(p)
   
   # Fix docs path
