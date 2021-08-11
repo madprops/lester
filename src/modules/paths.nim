@@ -34,7 +34,7 @@ proc ask_paths*(): seq[string] =
   files = files.sortedByIt(it.last_modified).reversed()
           
   echo "\nChoose the templates to render"
-  echo "(Space separated)"
+  echo "(Space separated)\n"
   let xquit = &"{ansiForegroundColorCode(fgBlue)}(q){ansiResetCode} Quit"
   let xall = &"{ansiForegroundColorCode(fgBlue)}(A){ansiResetCode} All"
   echo &"{xquit} | {xall}\n"

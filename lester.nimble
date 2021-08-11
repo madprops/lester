@@ -8,4 +8,4 @@ bin           = @["lester"]
 
 # Dependencies
 requires "markdown >= 0.8.0"
-requires "nap >= 1.2.3"
+requires "nap >= 2.0.0"
