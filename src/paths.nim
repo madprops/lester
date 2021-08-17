@@ -1,13 +1,13 @@
+import std/os
+import std/times
+import std/tables
+import std/strutils
+import std/terminal
+import std/strformat
+import std/algorithm
 import settings
 import config
 import render
-import os
-import times
-import tables
-import strutils
-import terminal
-import strformat
-import algorithm
 
 type TFile = object
   path: string

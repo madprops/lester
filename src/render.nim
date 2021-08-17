@@ -1,9 +1,9 @@
+import std/strformat
+import std/strutils
+import std/algorithm
+import std/nre
+import pkg/markdown
 import config
-import markdown
-import strformat
-import strutils
-import algorithm
-import nre
 
 # Transform the markdown to html
 proc markdown_to_html*(path:string): string =

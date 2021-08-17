@@ -1,7 +1,7 @@
-import os
-import strutils
-import strformat
-import nap
+import std/os
+import std/strutils
+import std/strformat
+import pkg/nap
 
 template `!`(x: bool): bool = not x
 

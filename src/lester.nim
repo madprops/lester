@@ -1,9 +1,9 @@
-import modules/paths
-import modules/config
-import os
-import terminal
-import strutils
-import strformat
+import std/os
+import std/terminal
+import std/strutils
+import std/strformat
+import paths
+import config
 
 # Get the config object
 get_config()
