@@ -1,7 +1,4 @@
-import std/os
-import std/terminal
-import std/strutils
-import std/strformat
+import std/[os, terminal, strutils, strformat]
 import paths
 import config
 

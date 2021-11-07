@@ -1,8 +1,7 @@
 /* Put all your styling here */
 
-body, html
-{
-    background-color: black;
+body, html {
+    background-color: rgb(30, 26, 37);
     font-size: 20px;
     font-family: sans-serif;
     display: flex;
@@ -14,22 +13,16 @@ body, html
     height: 100%;
 }
 
-#background
-{
+#background {
     z-index: 1;
     position: fixed;
     top: 0; left: 0;
     width: 100%;
     height: 100%;
-    background: url(../img/background.gif);
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
     opacity: 0.8;
 }
 
-#container
-{
+#container {
     z-index: 2;
     margin-top: 45px;
     padding: 50px;
@@ -39,27 +32,23 @@ body, html
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    background-color: rgba(0, 0, 0, 0.9);
     color: white;
 }
 
-#footer
-{
+#footer {
     padding-top: 25px;
     padding-bottom: 25px;
     width: 100%;
 }
 
-pre
-{
+pre {
     display: inline-block;
     background-color: rgba(26, 26, 26, 0.8);
     border: 2px solid rgba(66, 66, 66, 0.8);
     padding: 20px;
 }
 
-code
-{
+code {
     background-color: rgba(26, 26, 26, 0.8);
     border: 1px solid rgba(66, 66, 66, 0.8);
     margin-left: 5px;
@@ -67,8 +56,7 @@ code
     font-size: 0.9rem;
 }
 
-pre > code
-{
+pre > code {
     background-color: transparent;
     border: 0px solid purple;
     padding: 0;

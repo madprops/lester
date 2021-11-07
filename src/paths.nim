@@ -1,10 +1,4 @@
-import std/os
-import std/times
-import std/tables
-import std/strutils
-import std/terminal
-import std/strformat
-import std/algorithm
+import std/[os, times, tables, strutils, terminal, strformat, algorithm, sequtils]
 import settings
 import config
 import render
@@ -107,12 +101,26 @@ proc process_path*(path: string) =
     fname = conf().file_name
   else:
     fname = extractFileName(path)
-  
+
   # Add html extension
   fname = fname.changeFileExt("html")
-  
+
   var rpath = joinpath(conf().docs_path, "render/pages")
+  var updated = false
+
+  if conf().update:
+    for _, f in walkDir(rpath):
+      let fname0 = extractFilename(f)
+      if fname0.split("_")[1] == fname:
+        fname = fname0
+        updated = true
+        break
   
+  if not updated:
+    # Add date time
+    let dt = now().format("yyyy-MM-dd-HH-mm")
+    fname = &"{dt}_{fname}"
+    
   try:
     # Save the html render
     writeFile(joinpath(rpath, fname), html)

@@ -1,7 +1,4 @@
-import std/strformat
-import std/strutils
-import std/algorithm
-import std/nre
+import std/[strformat, strutils, algorithm, nre]
 import pkg/markdown
 import config
 

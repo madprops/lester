@@ -1,6 +1,4 @@
-import std/os
-import std/strutils
-import std/strformat
+import std/[os, strutils, strformat]
 import pkg/nap
 
 template `!`(x: bool): bool = not x
@@ -11,6 +9,7 @@ type Config* = ref object
   favicon*: bool
   background*: bool
   footer*: bool
+  update*: bool
   docs_path*: string
   file_name*: string
   style_suffix*: string
@@ -30,6 +29,7 @@ proc get_config*() =
   let favicon = add_arg(name="no-favicon", kind="flag", help="Disable favicon addition")
   let background = add_arg(name="no-background", kind="flag", help="Disable background addition")
   let footer = add_arg(name="no-footer", kind="flag", help="Disable footer addition")
+  let update = add_arg(name="update", kind="flag", help="Update existing rendered file")
   let file_name = add_arg(name="name", kind="value", help="Name of the output file")
   let docs_path = add_arg(name="docs-path", kind="value", help="Path to the docs directory")
   let style_suffix = add_arg(name="style-suffix", kind="value", help="Suffix for the css file name")
@@ -77,7 +77,7 @@ proc get_config*() =
   docs_path:docs_path.value, file_name:file_name.value, style_suffix:style_suffix.value, 
   favicon_suffix:favicon_suffix.value, container_class:container_class.value, 
   background_class:background_class.value, footer_class:footer_class.value,
-  additional_css:additional_css.value, additional_js:additional_js.value)
+  update:update.used, additional_css:additional_css.value, additional_js:additional_js.value)
 
 proc conf*(): Config =
   return oconf
