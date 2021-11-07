@@ -3,7 +3,7 @@ import pkg/markdown
 import config
 
 # Transform the markdown to html
-proc markdown_to_html*(path:string): string =
+proc markdown_to_html*(path:string): (string, string) =
   var content = ""
 
   try:
@@ -28,7 +28,7 @@ proc markdown_to_html*(path:string): string =
   for line in content.splitlines():
     let ls = line.strip()
     if ls.tolower().startswith("title:"):
-      title = ls.replace(re"^(?i)title:", "")
+      title = ls.replace(re"^(?i)title:", "").strip()
     else:
       lines.add(line)
 
@@ -79,4 +79,4 @@ proc markdown_to_html*(path:string): string =
     md = &"<title>{title}</title>\n{md}"
 
   # Add other metadata and return string
-  &"<!DOCTYPE html>\n<meta charset='utf-8'>\n{md}"
+  (&"<!DOCTYPE html>\n<meta charset='utf-8'>\n{md}", title)

@@ -92,15 +92,16 @@ proc ask_paths*(): seq[string] =
 
 proc process_path*(path: string) =
   # Render the markdown
-  let html = markdown_to_html(path)
-
+  let ans = markdown_to_html(path)
+  let html = ans[0]
+  let title = ans[1]
   var fname = ""
   
   # Get the proper output file name
   if conf().file_name != "":
     fname = conf().file_name
   else:
-    fname = extractFileName(path)
+    fname = title.substr(0, 50).replace(" ", "-")
 
   # Add html extension
   fname = fname.changeFileExt("html")
